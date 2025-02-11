@@ -1,0 +1,14 @@
+services:
+    nginx:
+        build: ./srcs/nginx/
+        dockerfile: Dockerfile
+        container_name: nginx
+        ports:
+            - "80:80"
+        command: echo "BUILDING NGINX"
+    
+    wordpress:
+        build: ./srcs/wordpress/
+        dockerfile: Dockerfile
+        container_name: wp-php
+        command: echo "BUILDING WORDPRESS"
