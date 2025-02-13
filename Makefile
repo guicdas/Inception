@@ -1,8 +1,14 @@
-all:
+all: build
 
-build:
-	clear
+build:	c
 	docker compose up --build
 
-clean:
+clean: c
 	docker compose down
+
+fclean:	clean
+	docker image rm nginx
+	docker container prune
+
+c:
+	clear

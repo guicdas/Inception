@@ -1,14 +1,14 @@
 services:
     nginx:
         build: ./srcs/nginx/
-        dockerfile: Dockerfile
         container_name: nginx
         ports:
             - "80:80"
-        command: echo "BUILDING NGINX"
+        command: printf "\033[0;36m" || echo "BUILDING NGINX" || printf "'\033[0m'"
+        restart: always
     
-    wordpress:
-        build: ./srcs/wordpress/
-        dockerfile: Dockerfile
-        container_name: wp-php
-        command: echo "BUILDING WORDPRESS"
+    #wordpress:
+    #    build: ./srcs/wordpress/
+    #    container_name: wp-php
+    #    command: printf "\033[0;36m" || echo "BUILDING WORDPRESS" || printf "'\033[0m'"
+    #    restart: always

@@ -1,4 +1,6 @@
-ARG VERSION=latest
+ARG VERSION=bullseye
+# penultimate stable version  |  "latest" keyword may cause some errors
+
 FROM debian:${VERSION}
 
 RUN apt -y update && apt -y upgrade && apt install -y php-fpm
