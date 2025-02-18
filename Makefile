@@ -1,7 +1,7 @@
 all: build
 
 build:	c
-	docker compose up --build
+	docker compose up --build #--no-cache
 
 clean: c
 	docker compose down
