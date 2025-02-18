@@ -3,15 +3,17 @@ ARG VERSION=bullseye
 
 FROM debian:${VERSION}
 
-RUN apt -y update           && \
-    apt -y upgrade          && \
-    apt install -y nginx    && \
-    #nginx -t                && \
-    apt install -y vim      && \
-    apt install -y curl     && \
-    mkdir -p /etc/nginx/ssl && \
-    apt install -y OpenSSL  && \
-    openssl req
+RUN apt -y update && apt -y upgrade
+RUN apt install -y nginx
+#RUN nginx -t
+#RUN apt install -y vim
+#RUN apt install -y curl
+RUN mkdir -p /etc/nginx/ssl
+RUN apt install -y OpenSSL
+RUN openssl req -noenc -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key \
+    -subj "/C=PT/L=Lisboa/O=42/OU=42/CN=gcatarin.42.fr/UID=gcatarin"
+RUN mkdir -p /var/run/nginx
+
 
 
 #CMD [ "nginx", "-it" ]
