@@ -1,4 +1,4 @@
-ARG VERSION=bullseye
+ARG VERSION=bullseye 
 # penultimate stable version  |  "latest" keyword may cause some errors
 
 FROM debian:${VERSION}
@@ -18,3 +18,6 @@ RUN mkdir -p /var/run/nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
 CMD [ "nginx", "-g", "daemon off" ]
+
+RUN chmod 755 /var/www/html (notre root principal)
+RUN chown -R www-data:www-data /var/www/html
