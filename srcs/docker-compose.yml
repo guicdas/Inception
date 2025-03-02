@@ -1,12 +1,23 @@
 services:
     nginx:
-        build: ./srcs/nginx/
+        build: ./requirements/nginx/
         container_name: nginx
         ports:
             - "80:80"
         command: printf "\033[0;36m" || echo "BUILDING NGINX" || printf "'\033[0m'"
         restart: always
     
+    mariadb:
+        build: ./requirements/mariadb
+        #image: mariadb:10.5
+        container_name: mariadb
+        expose:
+            - 3306
+        restart: always
+        #healthcheck
+        environment:
+            DB_NAME: ${DB_NAME}
+
     #wordpress:
     #    build: ./srcs/wordpress/
     #    container_name: wp-php

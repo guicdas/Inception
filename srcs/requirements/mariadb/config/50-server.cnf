@@ -1,6 +1,11 @@
 [mysqld]
-datadir = /var/lib/mysql
-#socket  = /run/mysqld/mysqld.sock
-bind_address=*
-port = 3306
-user = mysql
+#performance_schema      = OFF
+
+basedir                 = /usr
+tmpdir                  = /tmp
+datadir                 = /var/lib/mysql
+port                    = 3306
+user                    = mysql
+bind-address            = localhost
+
+[mariadb]
