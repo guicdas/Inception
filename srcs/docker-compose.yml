@@ -8,18 +8,19 @@ services:
         restart: always
     
     mariadb:
+        image: mariadb:10.5
         build: ./requirements/mariadb
-        #image: mariadb:10.5
         container_name: mariadb
         expose:
             - 3306
         restart: always
+        env_file: 
+            - .env
         #healthcheck
-        environment:
-            DB_NAME: ${DB_NAME}
 
     #wordpress:
     #    build: ./srcs/wordpress/
     #    container_name: wp-php
-    #    command: printf "\033[0;36m" || echo "BUILDING WORDPRESS" || printf "'\033[0m'"
     #    restart: always
+
+    #    command: printf "\033[0;36m" || echo "BUILDING WORDPRESS" || printf "'\033[0m'"

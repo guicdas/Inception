@@ -1,10 +1,12 @@
+DOCK_COMPOSE	= ./srcs/docker-compose.yml
+
 all: build
 
 build:	clr
-	docker compose up --build --no-cache
+	docker compose -f ${DOCK_COMPOSE} up --build --no-cache
 
 clean: clr
-	docker compose -f srcs/docker-compose.yml down
+	docker compose -f ${DOCK_COMPOSE} down
 
 fclean:	clean
 	docker system prune --all --force
@@ -15,8 +17,8 @@ fclean:	clean
 	#rm -rf /home//data/wp-files/ /home//data/wp-db/ /home//data/website-files/
 
 maria: clr
-	docker compose -f srcs/docker-compose.yml up -d --build 'mariadb'
-	docker run -it mariadb
+	docker compose --env-file ./srcs/.env -f ${DOCK_COMPOSE} up -d --build mariadb
+	docker run -it mariadb:10.5
 
 clr:
 	clear
