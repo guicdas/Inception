@@ -6,8 +6,7 @@ FROM debian:${VERSION}
 RUN apt -y update && apt -y upgrade && apt install -y nginx 
 RUN mkdir -p etc/nginx/ssl
 #RUN nginx -t
-#RUN apt install -y vim
-#RUN apt install -y curl
+
 RUN apt install -y openssl
 RUN openssl req -x509 -nodes \
     -subj "/C=PT/ST=LISBOA/L=Lisboa/O=42/OU=42/CN=gcatarin.42.fr/UID=gcatarin" \
@@ -17,7 +16,8 @@ RUN openssl req -x509 -nodes \
 RUN mkdir -p /var/run/nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
-CMD [ "nginx", "-g", "daemon off" ]
-
-RUN chmod 755 /var/www/html (notre root principal)
+RUN chmod -R 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html
+
+CMD [ "nginx", "-g daemon off;" ]
+# don't forget ;

@@ -3,7 +3,8 @@ DOCK_COMPOSE	= ./srcs/docker-compose.yml
 all: build
 
 build:	clr
-	docker compose -f ${DOCK_COMPOSE} up --build --no-cache
+	docker compose -f ${DOCK_COMPOSE} build --no-cache
+	docker compose -f ${DOCK_COMPOSE} up
 
 clean: clr
 	docker compose -f ${DOCK_COMPOSE} down
@@ -19,6 +20,14 @@ fclean:	clean
 maria: clr
 	docker compose --env-file ./srcs/.env -f ${DOCK_COMPOSE} up -d --build mariadb
 	docker run -it mariadb:10.5
+
+wp: clr
+	docker compose --env-file ./srcs/.env -f ${DOCK_COMPOSE} up -d --build wordpress
+	docker run -t wordpress:6.7
+
+nginx: clr
+	docker compose --env-file ./srcs/.env -f ${DOCK_COMPOSE} up -d --build nginx
+	docker run -it nginx
 
 clr:
 	clear

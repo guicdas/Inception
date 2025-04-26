@@ -1,26 +1,52 @@
 services:
     nginx:
+        image: nginx:debian
         build: ./requirements/nginx/
         container_name: nginx
         ports:
-            - "80:80"
-        command: printf "\033[0;36m" || echo "BUILDING NGINX" || printf "'\033[0m'"
-        restart: always
+            - "443:443"
+        volumes:
+            - wordpress_data:/var/www/wordpress/
+        restart: on-failure
+        networks:
+            - inception_network
+        depends_on:
+            - wordpress
     
-    mariadb:
-        image: mariadb:10.5
-        build: ./requirements/mariadb
-        container_name: mariadb
-        expose:
-            - 3306
-        restart: always
-        env_file: 
-            - .env
-        #healthcheck
+    # mariadb:
+    #     image: mariadb:10.5
+    #     build: ./requirements/mariadb
+    #     container_name: mariadb
+    #     expose:
+    #         - 3306
+    #     restart: always
+    #     env_file: .env
+    #     #healthcheck
 
-    #wordpress:
-    #    build: ./srcs/wordpress/
-    #    container_name: wp-php
-    #    restart: always
+    wordpress:
+        image: wordpress:6.7
+        ports:
+            - "9000:9000"
+        build: ./requirements/wordpress/
+        container_name: wordpress
+        volumes:
+            - wordpress_data:/var/www/html/
+        working_dir: /var/www/html/
+        env_file: .env
+        restart: on-failure
+        networks:
+            - inception_network
+        #depends_on:
+        #    - mariadb
 
-    #    command: printf "\033[0;36m" || echo "BUILDING WORDPRESS" || printf "'\033[0m'"
+volumes:
+    wordpress_data:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/Users/gcatarin/data/wordpress'
+
+networks:
+    inception_network:
+        driver: bridge

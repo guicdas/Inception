@@ -1,6 +1,8 @@
 ARG VERSION=bullseye 
 FROM debian:${VERSION}
 
+##  ENV key=value
+
 RUN apt -y update && apt -y upgrade
 RUN apt install -y mariadb-server
 
